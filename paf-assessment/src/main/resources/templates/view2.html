@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>List of Beers</title>
+</head>
+
+<body>
+
+	<h1 data-th-object="${brewery}"><span data-th-text="*{name}"></span></h1>
+	<span data-th-text="*{breweryId}"></span>
+	<div>
+		<a href="/">Back</a>
+	</div>
+	<div data-th-object="${brewery}">
+		<table>
+			<tr>
+				<td>Description: </td>
+				<td><span data-th-text="*{description}"></span></td>
+			</tr>
+			<tr>
+				<td>Address: </td>
+				<td><span data-th-text="*{address1}"></span>
+					<br>
+					<span data-th-text="*{city}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>Phone: </td>
+				<td><span data-th-text="*{phone}"></span></td>
+			</tr>
+			<tr>
+				<td>Website: </td>
+				<td><a data-th-href="*{website}">Go</a></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<h2>Beers</h2>
+	</div>
+	<table border="1" data-th-object="${brewery}">
+		<form th:action="@{/brewery/{breweryId}/order (breweryId=*{breweryId})}" method="post" id="order">
+			<input type="submit" value="Place Order">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Quantity</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-th-each="b: ${beers}" data-th-object="${b}">
+					<td>
+						<span data-th-text="*{beerName}"></span>
+					</td>
+					<td>
+						<span data-th-text="*{beerDescription}"></span>
+					</td>
+					<td>
+						<input type="number" th:id="*{beerId}" th:name="*{beerId}">
+					</td>
+				</tr>
+			</tbody>
+		</form>
+	</table>
+
+</body>
+
+</html>
